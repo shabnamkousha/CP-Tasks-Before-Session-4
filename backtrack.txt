@@ -1,0 +1,55 @@
+1- Combibnations - Given two integers n and k, return all possible combinations of k numbers out of 1 2 3 
+
+public class Solution {
+	public ArrayList<ArrayList<Integer>> combine(int n, int k) {
+	    ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
+	    if (n <= 0 || n < k)
+		    return result;
+		ArrayList<Integer> num_ar = new ArrayList<Integer>();
+        dfs(n, k, 1, num_ar, result);
+        return result;
+	}
+	
+	private void dfs(int n, int k, int start, ArrayList<Integer> num_ar,
+		ArrayList<ArrayList<Integer>> res) {
+	if (num_ar.size() == k) {
+		res.add(new ArrayList<Integer>(num_ar));
+		return;
+	}
+ 
+	for (int i = start; i <= n; i++) {
+		num_ar.add(i);
+		dfs(n, k, i + 1, num_ar, res);
+		num_ar.remove(num_ar.size() - 1);
+	}
+}
+}
+
+-----------------------------------------------------
+
+2- Permutations - Given a collection of numbers, return all possible permutations.
+
+public class Solution {
+	public ArrayList<ArrayList<Integer>> permute(ArrayList<Integer> a) {
+	    ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
+        result.add(new ArrayList<Integer>());
+         for(int i =0; i < a.size(); i++){
+            ArrayList<ArrayList<Integer>> cur_ar = new ArrayList<ArrayList<Integer>>();
+            
+            for(ArrayList<Integer> l : result){
+                
+                for(int j =0; j < l.size() + 1; j++){
+
+                    l.add(j, a.get(i));
+                    ArrayList<Integer> temp = new ArrayList<Integer>(l);
+                    cur_ar.add(temp);
+                    l.remove(j);
+                }
+            }
+            result = new ArrayList<ArrayList<Integer>>(cur_ar);
+        }
+        return result;
+	}
+}
+
+
